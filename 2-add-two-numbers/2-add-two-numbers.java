@@ -14,8 +14,18 @@ class Solution {
         ListNode p = l1, q = l2, res = result;
         int carry = 0, x, y;
         while (p!=null || q!=null || carry !=0) {  // Loop should go on until we reach the null value for each linked list and carry should be 0
-            x = (p != null) ? p.val : 0;
-            y = (q != null) ? q.val : 0;
+            if (p!=null) {
+                x = p.val;
+            }
+            else {
+                x = 0;
+            }
+            if (q!=null) {
+                y = q.val;
+            }
+            else {
+                y = 0;
+            }
             int sum = 0;
             sum = sum + carry + x + y; // it will provide sum of the values present in the 2 linked list
             carry = sum/10;
