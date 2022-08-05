@@ -10,12 +10,12 @@ class Solution {
         }
         // if a becomes 0 that means array is in descending order
         if (a == 0) {
-            Arrays.sort(nums);
+            Arrays.sort(nums); // sorting array in ascending order
             return;
         }
         a--; // decrement a since we checked nums[a] with nums[a-1] and hence we found nums[a] > nums[a-1]
         int s = n-1;
-        while (s > 0 && nums[a] >= nums[s]) {
+        while (s > 0 && nums[a] >= nums[s]) { // to find 
             s--;
         }
         int temp = nums[a];
