@@ -3,10 +3,14 @@ class Solution {
         if (nums.length == 1) {
             return 0;
         }
-        Arrays.sort(nums);
-        int target = nums[nums.length - 1];
+        int target = Integer.MIN_VALUE;
+        for(int i = 0; i < nums.length; i++) {
+            if (target < nums[i]) {
+                target = nums[i];
+            }
+        }
         int sum = 0;
-        for (int i = 0; i < nums.length - 1; i++) {
+        for (int i = 0; i < nums.length; i++) {
             sum += (target - nums[i]);
         }
         return sum;
