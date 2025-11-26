@@ -6,7 +6,7 @@ class Solution {
         Set<Integer> remSet = new HashSet<>();
         int currRem = 1;
         List<Integer> list = new ArrayList<>();
-        while (true) {
+        while (list.size() <= k) {
             list.add(1);
             currRem = currRem % k;
             if (currRem == 0) {
