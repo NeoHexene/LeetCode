@@ -4,9 +4,9 @@ class Solution:
         maxSum = 0
         for n in nums:
             if n == 0:
+                maxSum = max(sum, maxSum)
                 sum = 0
             else:
                 sum += n
-            maxSum = max(sum, maxSum)
             
-        return maxSum
+        return max(maxSum, sum)
