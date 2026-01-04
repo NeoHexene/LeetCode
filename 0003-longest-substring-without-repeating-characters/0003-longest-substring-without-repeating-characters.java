@@ -8,8 +8,8 @@ class Solution {
         int maxLen = 0;
         for (int right = 0; right < s.length(); right ++) {
             char c = s.charAt(right);
-            if (map.containsKey(c) && map.get(c) >= left) {
-                left = map.get(c) + 1;
+            if (map.containsKey(c)) {
+                left = Math.max(map.get(c) + 1, left);
             }
             maxLen = Math.max(right - left + 1, maxLen);
             map.put(c, right);
