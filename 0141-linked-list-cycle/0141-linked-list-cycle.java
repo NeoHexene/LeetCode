@@ -17,7 +17,7 @@ public class Solution {
         ListNode slow = head;
         ListNode fast = head.next;
 
-        while (slow != null && fast != null && fast.next != null) {
+        while (fast != null && fast.next != null) {
             if (slow == fast) {
                 return true;
             }
