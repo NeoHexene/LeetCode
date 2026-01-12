@@ -5,11 +5,11 @@ class Solution {
         for (int i = 0, j = 0; j < s.length(); j++) {
             currLen = j - i + 1;
             map.put(s.charAt(j), map.getOrDefault(s.charAt(j), 0) + 1);
-            maxFreq = Collections.max(map.values());
+            maxFreq = Math.max(maxFreq, map.get(s.charAt(j)));
 
             while (currLen - maxFreq > k) {
                 map.put(s.charAt(i), map.get(s.charAt(i)) - 1);
-                maxFreq = Collections.max(map.values());
+                maxFreq = Math.max(maxFreq, map.get(s.charAt(i)));
                 i++;
                 currLen = j - i + 1;
             }
