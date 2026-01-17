@@ -5,12 +5,12 @@ class Solution {
             ans.add(new ArrayList<>(temp));
             return;
         }
-        if (target < 0) {
-            return;
-        }
         for (int i = index; i < candidates.length; i++) {
             if (i > index && candidates[i] == candidates[i - 1]) {
                 continue;
+            }
+            if (candidates[i] > target) {
+                break;
             }
             temp.add(candidates[i]);
             getAllCombinations(candidates, target - candidates[i], i + 1, temp, ans);
