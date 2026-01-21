@@ -1,41 +1,42 @@
 class Solution {
     public int maxDiff(int num) {
-        StringBuffer sb = new StringBuffer(String.valueOf(num));
-        int min = 0;
-        int max = 0;
-        if (sb.charAt(0) > '1') {
-            min = replaceNumbers(new StringBuffer(sb), 0, sb.charAt(0), '1');
-        } else {
-            int i = 1;
-            while (i < sb.length() && (sb.charAt(i) == '1' || sb.charAt(i) == '0')) {
-                i++;
-            }
-            if (i < sb.length()) {
-                min = replaceNumbers(new StringBuffer(sb), i, sb.charAt(i), '0');
-            } else {
-                min = num;
-            }
-        }
+        String s = String.valueOf(num);
 
-        int i = 0;
-        while (i < sb.length() && sb.charAt(i) == '9') {
-            i++;
+        char maxFrom = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != '9') {
+                maxFrom = s.charAt(i);
+                break;
+            }
         }
-        if (i < sb.length()) {
-            max = replaceNumbers(new StringBuffer(sb), i, sb.charAt(i), '9');
+        int max = (maxFrom == 0) ? num : replaceAll(s, maxFrom, '9');
+
+        char minFrom = 0;
+        char minTo = 0;
+        if (s.charAt(0) != '1') {
+            minFrom = s.charAt(0);
+            minTo = '1';
         } else {
-            max = num;
+            for (int i = 1; i < s.length(); i++) {
+                if (s.charAt(i) != '0' && s.charAt(i) != '1') {
+                    minFrom = s.charAt(i);
+                    minTo = '0';
+                    break;
+                }
+            }
         }
-        
+        int min = (minFrom == 0) ? num : replaceAll(s, minFrom, minTo);
+
         return max - min;
     }
 
-    private int replaceNumbers (StringBuffer s, int idx, char from, char to) {
-        for (int i = idx; i < s.length(); i++) {
-            if (s.charAt(i) == from) {
-                s.setCharAt(i, to);
+    private int replaceAll (String s, char from, char to) {
+        StringBuffer sb = new StringBuffer(s);
+        for (int i = 0; i < sb.length(); i++) {
+            if (sb.charAt(i) == from) {
+                sb.setCharAt(i, to);
             }
         }
-        return Integer.parseInt(s.toString());
+        return Integer.parseInt(sb.toString());
     }
 }
