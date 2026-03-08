@@ -57,6 +57,3 @@ class Solution {
         return count;
     }
 }
-
-// 4: 1
-// 5: 2
