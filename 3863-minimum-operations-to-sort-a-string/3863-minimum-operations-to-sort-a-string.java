@@ -3,57 +3,47 @@ class Solution {
         if (s.length() == 1) {
             return 0;
         }
-        if (s.length() == 2) {
-            if (s.charAt(0) > s.charAt(1)) {
-                return -1;
-            }
+
+        char[] tarr = s.toCharArray();
+        Arrays.sort(tarr);
+        String t = new String(tarr);
+
+        if (s.length() == 2 && !s.equals(t)) {
+            return -1;
+        }
+        if (s.length() == 2 && s.equals(t)) {
             return 0;
         }
-        int idx = sortCheck(s);
-        if (idx != -1) {
-            int backCount = looping (s, false);
-            int frontCount = looping (s, true);
-            return Math.min(backCount, frontCount);
+
+        if (s.equals(t)) {
+            return 0;
         }
-        return 0;
-    }
 
-    private String backSorted (String s) {
-        char[] backArray = s.substring(1, s.length()).toCharArray();
-        Arrays.sort(backArray);
-        return s.charAt(0) + String.valueOf(backArray);
-    }
+        if (s.charAt(0) == t.charAt(0) || s.charAt(s.length() - 1) == t.charAt(t.length() - 1)) {
+            return 1;
+        } else {
+            char[] frontArr = s.substring(0, s.length() - 1).toCharArray();
+            Arrays.sort(frontArr);
+            String frontSorted = new String(frontArr) + s.charAt(s.length() - 1);
+            char[] backArr = frontSorted.substring(1, s.length()).toCharArray();
+            Arrays.sort(backArr);
+            String backSorted = frontSorted.charAt(0) + new String(backArr);
 
-    private String frontSorted (String s) {
-        char[] frontArray = s.substring(0, s.length() - 1).toCharArray();
-        Arrays.sort(frontArray);
-        return String.valueOf(frontArray) + s.charAt(s.length() - 1);
-    }
-
-    private int sortCheck (String s) {
-        boolean sortReq = false;
-        int idx = -1;
-        for (int i = 1; i < s.length() && !sortReq; i++) {
-            if (!(s.charAt(i - 1) <= s.charAt(i))) {
-                idx = i;
-                sortReq = true;
-            }
-        }
-        return idx;
-    }
-
-    private int looping (String s, boolean front) {
-        int count = 0;
-        while (sortCheck(s) != -1) {
-            if (!front) {
-                s = backSorted(s);
+            if (backSorted.equals(t)) {
+                return 2;
             } else {
-                s = frontSorted(s);
+                backArr = s.substring(1, s.length()).toCharArray();
+                Arrays.sort(backArr);
+                backSorted = s.charAt(0) + new String(backArr);
+                frontArr = backSorted.substring(0, s.length() - 1).toCharArray();
+                Arrays.sort(frontArr);
+                frontSorted = new String(frontArr) + backSorted.charAt(s.length() - 1);
+                if (frontSorted.equals(t)) {
+                    return 2;
+                }
             }
-            front = !front;
-            count += 1;
-            System.out.println("S: "+s);
+            return 3;
         }
-        return count;
+
     }
 }
