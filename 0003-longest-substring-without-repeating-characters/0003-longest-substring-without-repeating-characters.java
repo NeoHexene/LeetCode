@@ -12,13 +12,10 @@ class Solution {
         // Right pointer expands the window
         for (int right = 0; right < s.length(); right++) {
 
-            // Current character at the right pointer
-            char c = s.charAt(right);
-
             // If the character already exists in the set,
             // it means we have a duplicate in the current window
             // So we need to shrink the window from the left
-            while (!set.isEmpty() && set.contains(c)) {
+            while (set.contains(s.charAt(right))) {
 
                 // Remove the leftmost character from the set
                 set.remove(s.charAt(left));
@@ -28,7 +25,7 @@ class Solution {
             }
 
             // Now it's safe to add the current character (no duplicates)
-            set.add(c);
+            set.add(s.charAt(right));
 
             // Update the maximum length of substring
             // Current window size = right - left + 1
