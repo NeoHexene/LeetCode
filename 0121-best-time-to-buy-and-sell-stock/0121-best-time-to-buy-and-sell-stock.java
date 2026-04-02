@@ -1,8 +1,8 @@
 class Solution {
 
     // Time Complexity: O(n)
-    // Space Complexity: O(1);
-    
+    // Space Complexity: O(1)
+
     public int maxProfit(int[] prices) {
         
         // If the array is empty, no transactions can be made
