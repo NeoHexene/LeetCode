@@ -40,6 +40,9 @@ class Solution {
             if (pile % t != 0) {
                 hours += 1;
             }
+            if (hours > h) {
+                return false;
+            }
         }
         return hours <= h;
     }
