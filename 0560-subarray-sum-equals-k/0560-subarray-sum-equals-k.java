@@ -1,40 +1,61 @@
 class Solution {
+
     /*
-    [1,1,1], k = 2
-    [1,2,3], k = 3
+    INTUITION:
 
-    Brute force:
-    Traversing on the array and then checking each pair and lengths.
-    TC: O(n^2)
-    SC: O(1)
+    We want to count subarrays with sum = k.
 
-    prefix(l, r) = prefix(r) - prefix(l - 1)
-    0, 1, 2, 3
-    1, 3, 5, 6
-    1, 4, 9, 15
+    Instead of checking all subarrays (slow), we use a trick:
 
-    sum(2, 3) -> prefix(3) - prefix(1)
-                 15 - 4 = 11
+    At every index, we keep a running sum = sum.
 
-    sum(i, j) -> prefix(j) - prefix(i - 1)
+    Now we ask:
+    "Have I seen a previous sum such that removing it gives k?"
 
-    k -> prefix(j) - prefix(i - 1)
-    prefix(i - 1) -> prefix(j) - k
+    That means:
+        currentSum - previousSum = k
+        previousSum = currentSum - k
 
+    So:
+       If (sum - k) has appeared before,
+       then we found a subarray ending here with sum = k.
+
+    We use a HashMap to store:
+        prefixSum -> how many times we have seen it
+
+    Why frequency?
+    Because the same prefix sum can appear multiple times,
+    and each occurrence gives a valid subarray.
+
+    KEY MEMORY TRICK:
+       "Check (sum - k), then store sum"
     */
-    public int subarraySum(int[] nums, int k) {
-        // check for the length of the input array and if k is 0 then 1.
-        // initialize the sum to frequency map.
 
+    public int subarraySum(int[] nums, int k) {
+
+        // Map: prefix sum -> frequency
         Map<Integer, Integer> prefSum = new HashMap<>();
+
+        // Important:
+        // Before starting, sum = 0 has occurred once
+        // Helps count subarrays starting from index 0
         prefSum.put(0, 1);
-        int sum = 0;
-        int count = 0;
+
+        int sum = 0;   // running sum
+        int count = 0; // answer
+
         for (int num : nums) {
+
+            // Update running sum
             sum += num;
+
+            // Check if we have seen (sum - k) before
+            // If yes, those many subarrays end here with sum = k
             if (prefSum.containsKey(sum - k)) {
                 count += prefSum.get(sum - k);
             }
+
+            // Store current sum for future use
             prefSum.put(sum, prefSum.getOrDefault(sum, 0) + 1);
         }
 
