@@ -7,9 +7,7 @@ class Solution {
         for (int i = 1; i < intervals.length; i++) {
             int[] curr = intervals[i];
             if (prev[1] >= curr[0]) {
-                curr[0] = prev[0];
-                curr[1] = Math.max(prev[1], curr[1]);
-                prev = curr;
+                prev[1] = Math.max(prev[1], curr[1]);
             } else {
                 mergeList.add(prev);
                 prev = curr;
