@@ -1,20 +1,15 @@
 class Solution {
-    
-    private Map<Integer, Integer> dp = new HashMap<>();
-
     public int climbStairs(int n) {
-        return recursion(n);
-    }
-
-    private int recursion(int n) {
-        System.out.println("n: "+n);
         if (n <= 3) {
             return n;
         }
-        if (!dp.containsKey(n)) {
-            dp.put(n, recursion(n - 1) + recursion(n - 2));
+        int prev1 = 2;
+        int prev2 = 3;
+        for (int i = 4; i <= n; i++) {
+            int curr = prev1 + prev2;
+            prev1 = prev2;
+            prev2 = curr;
         }
-
-        return dp.get(n);
+        return prev2;
     }
 }
