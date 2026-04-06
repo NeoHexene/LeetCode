@@ -1,6 +1,5 @@
 /*
 INTUITION:
-
 This problem is about checking whether all courses can be finished.
 
 A course can be completed only after its prerequisites are completed first.
