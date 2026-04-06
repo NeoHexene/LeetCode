@@ -32,7 +32,7 @@ Use a stack:
     - If not → invalid
 
 Why push closing brackets?
-👉 It simplifies comparison (no need for mapping later)
+    It simplifies comparison (no need for mapping later)
 
 -----------------------------------------------------
 
@@ -49,11 +49,9 @@ IMPLEMENTED LOGIC:
 
 -----------------------------------------------------
 
-TIME COMPLEXITY:
-O(n)
+TIME COMPLEXITY: O(n)
 
-SPACE COMPLEXITY:
-O(n)
+SPACE COMPLEXITY: O(n)
 */
 
 class Solution {
