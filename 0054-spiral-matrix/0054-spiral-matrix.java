@@ -47,7 +47,7 @@ Repeat until boundaries cross.
 IMPORTANT EDGE CASE:
 
 After updating top and right, we must check:
-👉 whether boundaries are still valid
+    whether boundaries are still valid
 
 Otherwise we may traverse same row/column twice.
 
