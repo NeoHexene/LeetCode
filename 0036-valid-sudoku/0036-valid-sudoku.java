@@ -101,13 +101,13 @@ class Solution {
                     int boxIdx = (r / 3) * 3 + (c / 3);
 
                     // If already seen in row, column, or box → invalid
-                    if (rows[r][num] || cols[c][num] || boxes[boxIdx][num]) {
+                    if (rows[r][num] || cols[num][c] || boxes[boxIdx][num]) {
                         return false;
                     }
 
                     // Mark number as seen
                     rows[r][num] = true;
-                    cols[c][num] = true;
+                    cols[num][c] = true;
                     boxes[boxIdx][num] = true;
                 }
             }
