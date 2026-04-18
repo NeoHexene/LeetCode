@@ -14,9 +14,8 @@
  * }
  */
 class Solution {
-    
+
     public TreeNode constructMaximumBinaryTree(int[] nums) {
-        public TreeNode constructMaximumBinaryTree(int[] nums) {
         return dfs(nums);
     }
 
