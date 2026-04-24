@@ -13,10 +13,6 @@ class Solution {
             }
         }
 
-        if (l > r) {
-            return (l + b) - r;
-        } else {
-            return (r + b) - l;
-        }
+        return Math.abs(l - r) + b;
     }
 }
