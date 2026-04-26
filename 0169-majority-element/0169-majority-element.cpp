@@ -1,18 +1,20 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        map<int, int> map;
+        int ele = 0;
+        int count = 0;
+
         for (int i = 0; i < nums.size(); i++) {
-            map[nums[i]] += 1;
-        }
-        int maxFreq = 0;
-        int max = 0;
-        for (auto key : map) {
-            if (key.second > maxFreq) {
-                maxFreq = key.second;
-                max = key.first;
+            if (count == 0) {
+                ele = nums[i];
+                count = 1;
+            } else if (ele == nums[i]) {
+                count += 1;
+            } else {
+                count -= 1;
             }
         }
-        return max;
+
+        return ele;
     }
 };
