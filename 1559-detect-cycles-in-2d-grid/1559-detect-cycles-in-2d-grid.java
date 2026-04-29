@@ -4,6 +4,7 @@ class Solution {
         int n = grid[0].length;
 
         boolean[][] visited = new boolean[m][n];
+        int directions[][] = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -18,7 +19,6 @@ class Solution {
                 while (!q.isEmpty()) {
                     int curr[] = q.poll();
                     int r = curr[0], c = curr[1], pr = curr[2], pc = curr[3];
-                    int directions[][] = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
                     
                     for (int[] dir : directions) {
                         int nr = r + dir[0];
