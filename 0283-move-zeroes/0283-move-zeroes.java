@@ -54,16 +54,21 @@ Two pointers (slow + fast) for in-place array rearrangement
 class Solution {
     public void moveZeroes(int[] nums) {
 
-        int i = 0; // position to place next non-zero
+        int i = -1;
 
         for (int j = 0; j < nums.length; j++) {
-
+            if (nums[j] == 0) {
+                i = j;
+                break;
+            }
+        }
+        if (i == -1) {
+            return;
+        }
+        for (int j = i + 1; j < nums.length; j++) {
             if (nums[j] != 0) {
-                // swap nums[i] and nums[j]
-                int temp = nums[i];
                 nums[i] = nums[j];
-                nums[j] = temp;
-
+                nums[j] = 0;
                 i++;
             }
         }
