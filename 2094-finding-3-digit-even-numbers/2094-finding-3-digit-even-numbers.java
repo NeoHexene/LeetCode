@@ -1,38 +1,57 @@
 class Solution {
 
-    private Set<Integer> ans = new HashSet<>();
+    public int[] findEvenNumbers(int[] digits) {
+        //create a hashset to keep the track of used indeces in the three digit number
+        HashSet<Integer> usedIndices = new HashSet<>();
 
-    private void helper(int digit,  int[] nums, Set<Integer> visited, int size) {
-	    if (size == 3) {
-	        ans.add(digit);
-	        return;
-        }
-        for (int j = 0; j < nums.length; j++) {
-	        if ((size == 2 && nums[j] % 2 == 1) || visited.contains(j)) {
-	            continue;
-            }
-	        visited.add(j);
-            helper ((digit * 10) + nums[j] , nums, visited, size + 1);
-            visited.remove(j);
-        }
+        //create another hashset to have the unique three digit even numbers
+        HashSet<Integer> finalResult = new HashSet<>();
 
+        StringBuilder sb = new StringBuilder();
+        Arrays.sort(digits);
+
+        //let us call the helper function
+        helper(digits, 0, sb, usedIndices, finalResult);
+
+        List<Integer> list = new ArrayList<>(finalResult);
+        Collections.sort(list);
+
+        int[] result = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i); //  now .get() works
+        }
+        return result;
     }
 
-    public int[] findEvenNumbers(int[] nums) {
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != 0) {
-                Set<Integer> visited = new HashSet<>();
-                visited.add(i);
-                helper(nums[i], nums, visited, 1);
+    public void helper(int[] digits, int index, StringBuilder sb, HashSet<Integer> usedIndices,
+            HashSet<Integer> finalResult) {
+        //base case
+        if (index == 3) {
+            //add the element to the finalResult
+            int number = Integer.parseInt(sb.toString());
+            if (number % 2 == 0 && number >= 100 && number < 999) {
+                finalResult.add(number);
             }
+            return;
         }
-        int[] res = new int[ans.size()];
-        int i = 0;
-        for (Integer data : ans) {
-            res[i++] = data;
+
+        for (int j = 0; j < digits.length; j++) {
+
+            if (usedIndices.contains(j))
+                continue;
+            if (j > 0 && digits[j] == digits[j - 1] && !usedIndices.contains(j - 1))
+                continue;
+
+            if (!usedIndices.contains(j)) {
+                sb.append(digits[j]);
+                usedIndices.add(j);
+                helper(digits, index + 1, sb, usedIndices, finalResult);
+                //backtrack
+                sb.deleteCharAt(sb.length() - 1);
+                usedIndices.remove(j);
+            }
+
         }
-        Arrays.sort(res);
-        return res;
 
     }
 }
