@@ -11,13 +11,13 @@ class Solution {
 
         for (int i = 0; i < word.length(); i++) {
             char c = word.charAt(i);
-            if (Character.isLowerCase(c)) {
+            if (c >='a' && c <= 'z') {
                 lc[c - 'a'] = i;
             } else if (uc[c - 'A'] == -1) {
                 uc[c - 'A'] = i;
             }
         }
-        
+
         int count = 0;
 
         for (int i = 0; i < 26; i++) {
