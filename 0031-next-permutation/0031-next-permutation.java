@@ -65,47 +65,31 @@ O(1)
 
 class Solution {
     public void nextPermutation(int[] nums) {
-
-        // Step 1: Find the first decreasing element from the right
-        // nums[i - 1] < nums[i] means we found a pivot
         int i = nums.length - 1;
         while (i > 0 && nums[i - 1] >= nums[i]) {
             i--;
         }
-
-        // If no pivot exists, the array is in descending order
-        // This is the largest permutation, so reverse it to get the smallest
         if (i == 0) {
-            reverse(nums, 0, nums.length - 1);
+            swapNumbers(i, nums.length - 1, nums);
             return;
         }
-
-        // Step 2: Find the rightmost element greater than pivot
         int j = nums.length - 1;
         while (j >= i && nums[j] <= nums[i - 1]) {
             j--;
         }
-
-        // Step 3: Swap pivot with that element
-        swap(nums, i - 1, j);
-
-        // Step 4: Reverse the suffix to get the smallest arrangement
-        reverse(nums, i, nums.length - 1);
+        int temp = nums[i - 1];
+        nums[i - 1] = nums[j];
+        nums[j] = temp;
+        swapNumbers(i, nums.length - 1, nums);
     }
 
-    // Reverse the subarray from start to end
-    private void reverse(int[] nums, int start, int end) {
+    private void swapNumbers(int start, int end, int[] nums) {
         while (start < end) {
-            swap(nums, start, end);
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
             start += 1;
             end -= 1;
         }
-    }
-
-    // Swap two elements
-    private void swap(int[] nums, int l, int r) {
-        int temp = nums[l];
-        nums[l] = nums[r];
-        nums[r] = temp;
     }
 }
