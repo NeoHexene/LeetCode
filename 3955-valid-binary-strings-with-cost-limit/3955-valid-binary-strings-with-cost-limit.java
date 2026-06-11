@@ -1,30 +1,27 @@
 class Solution {
 
-    private List<String> res = new ArrayList<>();
+    private List<String> res;
 
-    private void helper(StringBuilder sb, int idx, int total, int k, int n, boolean prevOne) {
-        if (total > k) {
+    private void helper(char[] charArr, int n, int k, boolean prevOne, int cost, int idx) {
+        if (cost > k) {
             return;
         }
-        if (sb.length() == n) {
-            res.add(sb.toString());
+        if (idx == n) {
+            res.add(new String(charArr));
             return;
         }
-
-        System.out.println("String: " + sb.toString() + " Total: " + total);
-
+        charArr[idx] = '0';
+        helper(charArr, n, k, false, cost, idx + 1);
         if (!prevOne) {
-            sb.append(1);
-            helper(sb, idx + 1, total + idx, k, n, true);
-            sb.deleteCharAt(sb.length() - 1);
+            charArr[idx] = '1';
+            helper(charArr, n, k, true, cost + idx, idx + 1);
         }
-        sb.append(0);
-        helper(sb, idx + 1, total, k, n, false);
-        sb.deleteCharAt(sb.length() - 1);
     }
 
     public List<String> generateValidStrings(int n, int k) {
-        helper(new StringBuilder(), 0, 0, k, n, false);
+        res = new ArrayList<>();
+        char[] charArr = new char[n];
+        helper(charArr, n, k, false, 0, 0);
         return res;
     }
 }
