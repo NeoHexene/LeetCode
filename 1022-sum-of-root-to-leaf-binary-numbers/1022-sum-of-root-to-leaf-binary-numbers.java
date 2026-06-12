@@ -17,23 +17,22 @@ class Solution {
 
     private List<String> binaries;
 
-    private void dfs(StringBuilder sb, TreeNode root) {
+    private void dfs(StringBuilder sb, TreeNode root, int idx) {
         if (root.left == null && root.right == null) {
             sb.append(root.val);
-            System.out.println("String: " + sb.toString());
             binaries.add(sb.toString());
-            sb.deleteCharAt(sb.length() - 1);
+            sb.deleteCharAt(idx);
             return;
 
         }
         sb.append(root.val);
         if (root.left != null) {
-            dfs(sb, root.left);
+            dfs(sb, root.left, idx + 1);
         }
         if (root.right != null) {
-            dfs(sb, root.right);
+            dfs(sb, root.right, idx + 1);
         }
-        sb.deleteCharAt(sb.length() - 1);
+        sb.deleteCharAt(idx);
     }
 
     private int binaryToDecimal(String s) {
@@ -55,7 +54,7 @@ class Solution {
     public int sumRootToLeaf(TreeNode root) {
 
         binaries = new ArrayList<>();
-        dfs(new StringBuilder(), root);
+        dfs(new StringBuilder(), root, 0);
 
         int res = 0;
 
