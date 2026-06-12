@@ -1,22 +1,16 @@
 class Solution {
     public int countTriples(int n) {
-        if (n < 5) {
-            return 0;
-        } else {
-            int low = 1;
-            int count = 0;
-            while (low < n) {
-                int high = n-1;
-                while (high > 0) {
-                    double sqRt = Math.sqrt((low * low) + (high * high));
-                    if (sqRt % 1 == 0 && sqRt <= n) {
-                        count ++;
-                    }
-                    high --;
+        int count = 0;
+
+        for (int i = 1; i <= n - 1; i++) {
+            for (int j = 1; j <= n - 1; j++) {
+                int c = (int)Math.sqrt((i * i) + (j * j));
+                if (c <= n && (c * c) == ((i * i) + (j * j))) {
+                    count += 1;
                 }
-                low ++;
             }
-            return count;
         }
+
+        return count;
     }
 }
