@@ -4,7 +4,7 @@ abs(n - x) <= k
 n & x == 0
 
 
-range of x would be 1 to n + k
+range of x would be 1 to n + 2 * k
 */
 class Solution {
     public int sumOfGoodIntegers(int n, int k) {
