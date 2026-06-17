@@ -13,7 +13,6 @@ class Solution {
                 sbs.append(s.charAt(i));
             }
         }
-        System.out.println("New s: " + sbs.toString());
 
         idx = -1;
         StringBuilder sbt = new StringBuilder();
@@ -28,7 +27,6 @@ class Solution {
                 sbt.append(t.charAt(i));
             }
         }
-        System.out.println("New t: " + sbt.toString());
 
         return sbs.toString().equals(sbt.toString());
     }
