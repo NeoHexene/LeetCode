@@ -1,19 +1,16 @@
 class Solution {
     public int minDeletion(int[] nums) {
-        List<Integer> list = new ArrayList<>();
-        int idx = 0;
         int count = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (idx % 2 != 0 && list.get(idx - 1) == nums[i]) {
-                count++;
-                continue;
+
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] != nums[i + 1]) {
+                i++;
             } else {
-                list.add(nums[i]);
-                idx++;
+                count++;
             }
         }
-        if (list.size() % 2 != 0) {
-            count++;
+        if ((nums.length - count) % 2 != 0) {
+            count += 1;
         }
         return count;
     }
