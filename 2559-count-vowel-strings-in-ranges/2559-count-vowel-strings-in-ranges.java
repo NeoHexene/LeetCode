@@ -1,21 +1,22 @@
 class Solution {
+
+    private boolean isVowel(char c) {
+        return 'a' == c || 'e' == c || 'i' == c || 'o' == c || 'u' == c;
+    }
+
     public int[] vowelStrings(String[] words, int[][] queries) {
 
-        int comp[] = new int[words.length];
-        int pcomp = 0;
+        int[] prefix = new int[words.length + 1];
+        prefix[0] = 0;
+        int pcomp = 1;
         for (String s : words) {
             int lchar = s.length() - 1;
-            if (('a' == s.charAt(0) || 'e' == s.charAt(0) || 'i' == s.charAt(0) || 'o' == s.charAt(0) || 'u' == s.charAt(0)) && ('a' == s.charAt(lchar) || 'e' == s.charAt(lchar) || 'i' == s.charAt(lchar) || 'o' == s.charAt(lchar) || 'u' == s.charAt(lchar))) {
-                comp[pcomp++] = 1;
+            if (isVowel(s.charAt(0)) && isVowel(s.charAt(lchar))) {
+                prefix[pcomp] = prefix[pcomp - 1] + 1;
             } else {
-                comp[pcomp++] = 0;
+                prefix[pcomp] = prefix[pcomp - 1];
             }
-        } 
-
-        int[] prefix = new int[comp.length + 1];
-        prefix[0] = 0;
-        for (int i = 0; i < comp.length; i++) {
-            prefix[i + 1] = prefix[i] + comp[i];
+            pcomp++;
         }
 
         int res[] = new int[queries.length];
