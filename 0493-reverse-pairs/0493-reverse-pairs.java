@@ -1,48 +1,64 @@
 class Solution {
-    public int reversePairs(int[] nums) {
-        return mergeSort(nums, 0, nums.length - 1);
-    }
 
-    private int mergeSort(int[] nums, int low, int high) {
-        if (low >= high) return 0;
-        int mid = low + (high - low) / 2;
-        int count = mergeSort(nums, low, mid) + mergeSort(nums, mid + 1, high);
-        count += merge(nums, low, mid, high);
-        return count;
-    }
-
-    private int merge(int[] nums, int low, int mid, int high) {
+    private int checker(int nums[], int low, int mid, int high) {
         int count = 0;
-        int a[] = new int[high - low + 1];
-        int idx = 0;
+        int j = mid + 1;
+        for (int i = low; i <= mid; i++) {
+            while (j <= high && (long) nums[i] > (long) 2 * nums[j]) {
+                j++;
+            }
+            count += (j - (mid + 1));
+        }
+        return count;
+    }
 
-        int p = low, q = mid + 1;
-        while (p <= mid && q <= high) {
-            if ((long)nums[p] > (long)2 * nums[q]) {
-                count += mid - p + 1;
-                q++;
+    private void merge(int[] nums, int low, int mid, int high) {
+        int[] c = new int[nums.length];
+        int i = 0;
+        int left = low;
+        int right = mid + 1;
+
+        while (left <= mid && right <= high) {
+            if (nums[left] < nums[right]) {
+                c[i++] = nums[left++];
             } else {
-                p++;
+                c[i++] = nums[right++];
             }
         }
 
-        p = low; q = mid + 1;
-        while (p <= mid && q <= high) {
-            if (nums[p] < nums[q]) {
-                a[idx++] = nums[p++];
-            } else {
-                a[idx++] = nums[q++];
-            }
-        }
-        while (p <= mid) {
-            a[idx++] = nums[p++];
-        }
-        while (q <= high) {
-            a[idx++] = nums[q++];
+        while (left <= mid) {
+            c[i++] = nums[left++];
         }
 
-        System.arraycopy(a, 0, nums, low, high - low + 1);
+        while (right <= high) {
+            c[i++] = nums[right++];
+        }
+
+        for (int j = low; j <= high; j++) {
+            nums[j] = c[j - low];
+        }
+    }
+
+    private int divide(int nums[], int low, int high) {
+        int count = 0;
+
+        if (low >= high) {
+            return count;
+        }
+        int mid = low + (high - low) / 2;
+
+        count += divide(nums, low, mid);
+        count += divide(nums, mid + 1, high);
+        
+        count += checker(nums, low, mid, high);
+        
+        merge(nums, low, mid, high);
 
         return count;
+    }
+
+
+    public int reversePairs(int[] nums) {
+        return divide(nums, 0, nums.length - 1);
     }
 }
