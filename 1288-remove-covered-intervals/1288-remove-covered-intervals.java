@@ -13,7 +13,6 @@ class Solution {
         
         for (int i = 1; i < intervals.length; i++) {
             int[] curr = intervals[i];
-            System.out.println("Prev: " + prev[0] + ", " + prev[1] + " Curr: " + curr[0] + ", " + curr[1]);
             if (prev[1] >= curr[1]) {
                 continue;
             } else {
