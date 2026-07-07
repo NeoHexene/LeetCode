@@ -1,16 +1,16 @@
 class Solution {
     public long sumAndMultiply(int n) {
-        String s = Integer.toString(n).replaceAll("0","");
-        if (s.length() > 0) {
-            long nLong = Long.parseLong(s);
-        long temp = nLong;
         long sum = 0;
-        while (temp > 0) {
-            sum += temp % 10;
-            temp = temp/10;
+        String num = "";
+        while (n > 0) {
+            int digit = n % 10;
+            sum += digit;
+            if (digit != 0) {
+                num = digit + num;
+            }
+            n /= 10;
         }
-        return sum * nLong;
-        }
-        return (long) n;
+
+        return Long.parseLong("0" + num) * sum;
     }
 }
