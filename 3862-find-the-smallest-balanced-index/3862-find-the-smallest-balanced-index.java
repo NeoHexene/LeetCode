@@ -8,8 +8,8 @@ class Solution {
         long[] sufprod = new long[nums.length + 1];
         sufprod[nums.length] = 1;
         for (int i = nums.length - 1; i >= 0; i--) {
-            if (sufprod[i+1] > presum[nums.length]) {
-                sufprod[i] = sufprod[i + 1];
+            if (sufprod[i + 1] > (presum[nums.length] + 1) / nums[i]) {
+                sufprod[i] = presum[nums.length] + 1;
             } else {
                 sufprod[i] = sufprod[i + 1] * nums[i];
             }
