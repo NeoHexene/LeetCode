@@ -1,0 +1,31 @@
+class Solution {
+    public boolean lemonadeChange(int[] nums) {
+
+        int count10 = 0;
+        int count5 = 0;
+
+        for (int n : nums) {
+            if (n == 5) {
+                count5++;
+            } else if (n == 10) {
+                if (count5 == 0) {
+                    return false;
+                }
+                count5--;
+                count10++;
+            } else {
+                if (count5 == 0 || (count10 == 0 && count5 < 3)) {
+                    return false;
+                }
+                if (count10 == 0) {
+                    count5 -= 3;
+                } else {
+                    count10--;
+                    count5--;
+                }
+            }
+        }
+
+        return true;
+    }
+}
