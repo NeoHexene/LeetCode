@@ -14,19 +14,58 @@ class Node {
 */
 
 class Solution {
-    public Node copyRandomList(Node head) {
-        HashMap<Node, Node> map = new HashMap<>();
+
+    private void copyNodes(Node head) {
+
         Node curr = head;
         while (curr != null) {
-            map.put(curr, new Node (curr.val));
-            curr = curr.next;
+            Node copy = new Node (curr.val);
+            Node next = curr.next;
+            curr.next = copy;
+            copy.next = next;
+            curr = next;
         }
-        curr = head;
+    }
+
+    private void linkRandom(Node head) {
+
+        Node curr = head;
         while (curr != null) {
-            map.get(curr).next = map.get(curr.next);
-            map.get(curr).random = map.get(curr.random);
+            Node copy = curr.next;
+
+            if (curr.random != null) {
+                copy.random = curr.random.next;
+            } else {
+                copy.random = null;
+            }
+
+            curr = copy.next;
+        }
+    }
+
+    private Node separateLists(Node head) {
+
+        Node dummy = new Node(-1);
+        Node temp = dummy;
+        Node curr = head;
+
+        while (curr != null) {
+            temp.next = curr.next;
+            temp = temp.next;
+            curr.next = curr.next.next;
             curr = curr.next;
         }
-        return map.get(head);
+
+        return dummy.next;
+    }
+
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        copyNodes(head);
+        linkRandom(head);
+        return separateLists(head);
     }
 }
