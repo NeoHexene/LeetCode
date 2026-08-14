@@ -2,7 +2,6 @@ class Solution {
 
     private void helper(int num, int k, int sum, List<Integer> temp, List<List<Integer>> res) {
 
-        System.out.println("Num: " + num + " Sum: " + sum);
         if (sum == 0 && temp.size() == k) {
             res.add(new ArrayList<>(temp));
             return;
