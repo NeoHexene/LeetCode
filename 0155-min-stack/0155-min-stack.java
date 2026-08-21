@@ -25,8 +25,8 @@ class MinStack {
         pq.offer(newNode);
         if (top != null) {
             top.prev = newNode;
+            newNode.next = top;
         }
-        newNode.next = top;
         top = newNode;
     }
     
