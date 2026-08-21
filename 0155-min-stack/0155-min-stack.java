@@ -1,51 +1,41 @@
-class ListNode {
-    int val;
-    ListNode prev;
-    ListNode next;
-
-    ListNode(int val) {
-        this.val = val;
-        this.next = null;
-        this.prev = null;
-    }
-}
-
 class MinStack {
 
-    private PriorityQueue<ListNode> pq;
-    private ListNode top;
+    private Stack<Long> st;
+    private long min;
 
     public MinStack() {
-        pq = new PriorityQueue<>((a, b) -> Integer.compare(a.val, b.val));
-        top = null;
+        st = new Stack<>();
+        min = Long.MAX_VALUE;
     }
     
     public void push(int value) {
-        ListNode newNode = new ListNode(value);
-        pq.offer(newNode);
-        if (top != null) {
-            top.prev = newNode;
-            newNode.next = top;
+       if (value < min) {
+            st.push((long) 2 * value - min);
+            min = value;
+        } else {
+            st.push((long) value);
         }
-        top = newNode;
     }
     
     public void pop() {
-        ListNode temp = top;
-        pq.remove(temp);
-        top = top.next;
-        if (top != null) {
-            top.prev = null;
-            temp.next = null;        
+        long pop = st.pop();
+        if (pop < min) {
+            min = 2 * min - pop;
         }
     }
     
     public int top() {
-        return top.val;
+        if (st.peek() < min) {
+            return (int) min;
+        }
+        return (int) (long) st.peek();
     }
     
     public int getMin() {
-        return pq.peek().val;
+        if (st.isEmpty()) {
+            return -1;
+        }
+        return (int) min;
     }
 }
 
