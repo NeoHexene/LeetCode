@@ -36,8 +36,8 @@ class MinStack {
         top = top.next;
         if (top != null) {
             top.prev = null;
+            temp.next = null;        
         }
-        temp.next = null;        
     }
     
     public int top() {
