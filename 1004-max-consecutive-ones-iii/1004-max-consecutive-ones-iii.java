@@ -12,14 +12,16 @@ class Solution {
                 zero++;
             }
 
-            while (zero > k) {
+            if (zero > k) {
                 if (nums[l] == 0) {
                     zero--;
                 }
                 l++;
             }
 
-            maxlen = Math.max(maxlen, r - l + 1);
+            if (zero <= k) {
+                maxlen = Math.max(maxlen, r - l + 1);
+            }
 
             r++;
         }
