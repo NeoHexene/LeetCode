@@ -1,3 +1,6 @@
+/*
+DFS:
+
 class Solution {
 
     private boolean dfs(int[][] graph, int v, boolean[] visited, boolean[] pathvisited, boolean[] check) {
@@ -48,6 +51,57 @@ class Solution {
                 res.add(i);
             }
         }
+
+        return res;
+    }
+}
+*/
+
+class Solution {
+
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+        
+        int n = graph.length;
+
+        List<List<Integer>> reverseadj = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            reverseadj.add(new ArrayList<>());
+        }
+
+        int[] indegree = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j : graph[i]) {
+                reverseadj.get(j).add(i);
+                indegree[i]++;
+            }
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+
+        for (int i = 0; i < n; i++) {
+            if (indegree[i] == 0) {
+                q.offer(i);
+            }
+        }
+
+        List<Integer> res = new ArrayList<>();
+
+        while (!q.isEmpty()) {
+
+            int curr = q.poll();
+            res.add(curr);
+
+            for (int node : reverseadj.get(curr)) {
+                indegree[node]--;
+                if (indegree[node] == 0) {
+                    q.offer(node);
+                }
+            }
+        }
+
+        Collections.sort(res);
 
         return res;
     }
