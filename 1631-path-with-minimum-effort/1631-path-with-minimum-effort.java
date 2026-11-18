@@ -31,6 +31,10 @@ class Solution {
                 return currdiff;
             }
 
+            if (currdiff > diff[row][col]) {
+                continue;
+            }
+
             for (int i = 0; i < dr.length; i++) {
                 int nr = row + dr[i];
                 int nc = col + dc[i];
